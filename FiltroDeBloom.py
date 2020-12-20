@@ -1,5 +1,6 @@
 from BitVector import *
 import mmh3
+import random
 
 ## falta asegurarse de que las funciones de hash esten en el rango [0, m-1]
 
@@ -13,22 +14,23 @@ class FiltroDeBloom(object):
 		self.initSemillas()
 		
 
-	def initSemillas():
+	def initSemillas(self):
 		r = 3*self.k ## rango para escoger semillas
 		i = 0
-		while i < k:
+		while i < self.k:
 			self.semillas += [random.randrange(r)] 
+			i += 1
 
 
 	def insertar(self, p):
 		for sem in self.semillas:
-			hp = mmh3.hash(p, sem)
+			hp = mmh3.hash(p, sem)%self.m-1
 			self.V[hp] = 1
 
 
 	def revisar(self, p):
 		for sem in self.semillas:
-			hp = mmh3.hash(p, sem)
+			hp = mmh3.hash(p, sem)%self.m-1
 			if self.V[hp] == 0:
 				return 0
 		return 1

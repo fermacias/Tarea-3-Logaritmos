@@ -11,6 +11,11 @@ def testEstFiltroDeBloom():
 	assert filtro.V == BitVector(size=m)
 	filtro.insertar("string") 
 	assert filtro.V != BitVector(size=m)
+	s = "s"
+	i = 0
+	while i < 20:
+		filtro.insertar(s*i)
+		i+=1
 
 
 def testFnesFiltroDeBloom():
@@ -24,6 +29,7 @@ def testFnesFiltroDeBloom():
 	assert filtro.revisar("hola") == 1
 	assert filtro.revisar("chao") == 1
 	assert filtro.revisar("jiji") == 1
+
 
 if __name__ == "__main__":
     testEstFiltroDeBloom()

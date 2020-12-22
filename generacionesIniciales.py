@@ -20,19 +20,16 @@ def generateRandomMail():
     return (user + "@" + domain + "." + dotsomething)
 
 
-def generarCondicionesUnExperimento(n):
-    f = open("L.txt", w)
-    k = 2
-    filtroBloom = FiltroDeBloom.FiltroDeBloom(n, k)
-    for i in range(1, n):
+def generarCondicionesUnExperimento(n, m, k):
+    f = open("L.txt", "w")
+    filtroBloom = FiltroDeBloom.FiltroDeBloom(m, k)
+    usersConfirmados = []
+    for i in range(n):
         user = generateRandomUser()
         mail = generateRandomMail()
         filtroBloom.insertar(user)
         f.write(user+" "+mail+"\n")
+        if (i % 3 == 0):
+            usersConfirmados.append(user)
     f.close()
-    return filtroBloom
-
-
-if __name__ == "__main__":
-    generarCondicionesUnExperimento(10)
-    a = 1
+    return filtroBloom, usersConfirmados

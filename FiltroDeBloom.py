@@ -24,13 +24,13 @@ class FiltroDeBloom(object):
 
 	def insertar(self, p):
 		for sem in self.semillas:
-			hp = mmh3.hash(p, sem)%self.m-1
+			hp = mmh3.hash(p, sem)%self.m
 			self.V[hp] = 1
 
 
 	def revisar(self, p):
 		for sem in self.semillas:
-			hp = mmh3.hash(p, sem)%self.m-1
+			hp = mmh3.hash(p, sem)%self.m
 			if self.V[hp] == 0:
 				return 0
 		return 1
